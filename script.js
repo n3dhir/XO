@@ -37,24 +37,24 @@ function draw(grid) {
 }
 
 function reset() {
-  for(let cell of cells)
+  for (let cell of cells)
     cell.innerHTML = ' ';
   prevent = false;
   choose();
 }
 
-function losing (type, grid) {
-  for(let i=0;i<9;i++) {
-    if(grid[i] === ' ') {
-      if(type === 'x')
+function losing(type, grid) {
+  for (let i = 0; i < 9; i++) {
+    if (grid[i] === ' ') {
+      if (type === 'x')
         grid[i] = 'o';
       else
         grid[i] = 'x';
       let aux = winning([...grid]);
       grid[i] = ' ';
-      if(type === 'x' && aux === -1)
+      if (type === 'x' && aux === -1)
         return true;
-      if(type === 'o' && aux === 1)
+      if (type === 'o' && aux === 1)
         return true;
     }
   }
@@ -75,8 +75,8 @@ function get() {
 }
 
 function empty(grid) {
-  for(let cell of grid)
-    if(cell === ' ')
+  for (let cell of grid)
+    if (cell === ' ')
       return true;
   return false;
 }
@@ -84,10 +84,10 @@ function empty(grid) {
 function play() {
   let grid = get();
   let winner = winning(grid)
-  if(winner || !empty(grid)) {
-    if(winner === userSelect)
+  if (winner || !empty(grid)) {
+    if (winner === userSelect)
       show(1);
-    else if(winner && winner != userSelect)
+    else if (winner && winner != userSelect)
       show(0);
     else
       show();
@@ -100,7 +100,7 @@ function play() {
     for (let i = 0; i < 9; i++) {
       if (grid[i] === ' ') {
         grid[i] = 'x';
-        if(!already) {
+        if (!already) {
           ans = [...grid];
           aux = dp[ans];
           already = true;
@@ -109,7 +109,7 @@ function play() {
           ans = [...grid];
           aux = dp[ans];
         }
-        if(winning(grid) === 1) {
+        if (winning(grid) === 1) {
           ans = [...grid];
           break;
         }
@@ -120,10 +120,10 @@ function play() {
     turn = -1;
     grid = get();
     let winner = winning(grid)
-    if(winner || !empty(grid)) {
-      if(winner === userSelect)
+    if (winner || !empty(grid)) {
+      if (winner === userSelect)
         show(1);
-      else if(winner && winner != userSelect)
+      else if (winner && winner != userSelect)
         show(0);
       else
         show();
@@ -137,7 +137,7 @@ function play() {
     for (let i = 0; i < 9; i++) {
       if (grid[i] === ' ') {
         grid[i] = 'o';
-        if(!already) {
+        if (!already) {
           ans = [...grid];
           aux = dp[ans];
           already = true;
@@ -146,7 +146,7 @@ function play() {
           ans = [...grid];
           aux = dp[ans];
         }
-        if(winning(grid) === -1) {
+        if (winning(grid) === -1) {
           ans = [...grid];
           break;
         }
@@ -157,10 +157,10 @@ function play() {
     turn = 1;
     grid = get();
     let winner = winning(grid)
-    if(winner || !empty(grid)) {
-      if(winner === userSelect)
+    if (winner || !empty(grid)) {
+      if (winner === userSelect)
         show(1);
-      else if(winner && winner != userSelect)
+      else if (winner && winner != userSelect)
         show(0);
       else
         show();
@@ -253,11 +253,14 @@ function valid(grid) {
 }
 
 function solve(grid) {
+  if (dp[[...grid]] != undefined) {
+    return dp[[...grid]];
+  }
   if (!valid(grid))
-    return 0;
+    return dp[[...grid]] = 0;
   let ans = winning(grid);
   if (ans)
-    return ans;
+    return dp[[...grid]] = ans;
   let aux = 0;
   for (let i = 0; i < 9; i++)
     aux += grid[i] === ' ';
@@ -267,10 +270,11 @@ function solve(grid) {
         grid[i] = 'x';
       else
         grid[i] = 'o';
-      ans += solve([...grid]);
+      dp[[...grid]] = solve([...grid]);
+      ans += dp[[...grid]]
       grid[i] = ' ';
     }
-  return ans;
+  return dp[[...grid]] = ans;
 }
 
 cells.forEach(function (cell) {
