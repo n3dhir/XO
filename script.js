@@ -279,7 +279,7 @@ function solve(grid) {
 
 cells.forEach(function (cell) {
   cell.addEventListener("click", function (e) {
-    if (e.target.tagName !== 'IMG' && !prevent) {
+    if (e.target.tagName !== 'IMG' && !prevent && !e.target.childElementCount) {
       if (userSelect === -1) {
         e.target.innerHTML = `<img src="o-solid.svg">`;
         turn = 1;
