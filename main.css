@@ -1,0 +1,200 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Cairo", sans-serif;
+  user-select: none;
+}
+
+:root {
+  --back-color: #fafafa;
+  --color: #6125f9;
+  --filter1: invert(100%) sepia(57%) saturate(1%) hue-rotate(286deg)
+    brightness(110%) contrast(96%);
+  --filter2: invert(18%) sepia(79%) saturate(6544%) hue-rotate(258deg)
+    brightness(96%) contrast(103%);
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--back-color, #212121);
+  height: 100vh;
+  color: var(--back-color, #212121);
+}
+
+.wrapper {
+  text-align: center;
+  width: 315px;
+}
+
+.wrapper > .grid > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.wrapper > .grid > div > span {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--color, #c39a3b);
+  margin: 2px;
+  width: 100px;
+  height: 100px;
+  border-radius: 10px;
+  font-size: 50px;
+  border: 2px solid transparent;
+  position: relative;
+}
+
+.pop-up:hover {
+  color: var(--color, #c39a3b);
+  background-color: var(--back-color, #212121);
+  border-color: var(--color, #c39a3b);
+  transition: 0.5s;
+}
+
+.pop-up {
+  background: var(--color, #c39a3b);
+  margin-bottom: 15px;
+  border-radius: 10px;
+  padding: 10px;
+  border: 2px solid transparent;
+  position: relative;
+  font-size: 20px;
+}
+
+.pop-up > img {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin: 5px;
+  filter: var(--filter1);
+}
+
+.pop-up:hover > img {
+  filter: var(--filter2);
+  cursor: pointer;
+}
+
+.pop-up > img:hover {
+  transform: rotate(360deg);
+  transition: 0.5s;
+}
+
+.toggle {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.toggle input {
+  width: 0;
+  height: 0;
+}
+
+.toggle label {
+  display: inline-block;
+  width: 80px;
+  height: 40px;
+  border-radius: 20px;
+  background-color: var(--color, #c39a3b);
+  position: relative;
+  cursor: pointer;
+}
+
+.toggle label::after {
+  display: inline-block;
+  position: absolute;
+  content: "";
+  background-color: var(--back-color, #212121);
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  top: 2px;
+  right: 3px;
+  transition: 0.2s right linear;
+}
+
+.toggle input:checked + label::after {
+  right: calc(100% - 38px);
+}
+
+@media (max-width: 549px) {
+  .toggle {
+    display: none;
+  }
+}
+
+.choose {
+  font-size: 25px;
+  z-index: 1;
+  position: absolute;
+  width: 315px;
+  height: 315px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  background-color: var(--color);
+  border-radius: 10px;
+  border: 2px solid transparent;
+}
+
+.choose:hover {
+  background-color: var(--back-color);
+  color: var(--color);
+  border-color: var(--color);
+  transition: 0.5s;
+}
+
+.choose:hover > div > span > img {
+  filter: var(--filter2);
+}
+
+.choose > div > span > img {
+  width: 120px;
+  height: 120px;
+  filter: var(--filter1);
+}
+
+.choose > div > span {
+  border: 2px solid transparent;
+  display: inline-flex;
+  border-radius: 10px;
+  cursor: pointer;
+  margin: 5px;
+  align-items: center;
+}
+
+.choose > div > span:hover {
+  background-color: var(--color);
+  transition: 0.5s;
+}
+
+.choose > div > span:hover > img {
+  filter: var(--filter1);
+}
+
+.grid > div > span {
+  cursor: pointer;
+}
+
+.grid > div > span > img {
+  width: 80px;
+  height: 80px;
+  filter: var(--filter1);
+}
+
+.grid > div > span:hover {
+  background-color: var(--back-color);
+  border-color: var(--color);
+}
+
+.grid > div > span:hover > img{
+  filter: var(--filter2);
+}
